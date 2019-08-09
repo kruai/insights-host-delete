@@ -1,1 +1,1 @@
-# insights-HostDelete
+# insights-host-delete
