@@ -20,7 +20,12 @@ def handle_message(parsed):
 
     insights_id = parsed['insights_id']
     account = parsed['account']
-    send_request(insights_id, account)
+
+    if insights_id or account is None:
+        print("insights_id not defined, cannot send request to legacy")
+    else:
+        send_request(insights_id, account)
+
 
 def send_request(insights_id, account):
     print("sending delete request to legacy")
