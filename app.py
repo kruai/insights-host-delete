@@ -1,30 +1,17 @@
-import process
 import logging
 import json
+import requests
 
 from kafka.errors import KafkaError
+from requests.auth import HTTPBasicAuth
 from time import time
 from utils import config
 from mq import kafka_consumer
 
-logging.basicConfig(level=logging.INFO)
 
+logging.info("Starting legacy host deletion service")
 
-def main():
-
-    logger.info("Starting legacy host deletion service")
-
-    config.log_config()
-
-    consumer = kafka_consumer.init_consumer()
-
-    while True:
-        for data in consumer:
-            try:
-                print("calling msg_handler()")
-                handle_message(json.loads(data.value))
-            except Exception:
-                logger.exception("An error occurred during message processing")
+consumer = kafka_consumer.init_consumer()
 
 def handle_message(parsed):
     print("inside msg_handler()")
@@ -37,5 +24,10 @@ def handle_message(parsed):
 
 def send_request(insights_id, account):
     print("sending delete request to legacy")
-    
+    URL = config.LEGACY_URL + '/' + insights_id + '?' + 'account_number=' + account
+    r = requests.delete(URL, auth = HTTPBasicAuth(config.USERNAME,config.PASSWORD))
+    print(r.text)
 
+for data in consumer:
+    print("calling msg_handler()")
+    handle_message(json.loads(data.value))
