@@ -18,15 +18,12 @@ def handle_message(parsed):
     print("type(parsed):", type(parsed))
     print("parsed:", parsed)
 
-    insights_id = parsed['insights_id']
-    account = parsed['account']
-
-    if insights_id is None:
+    if parsed['insights_id'] is None:
         print("insights_id not defined, cannot send request to legacy")
-    else if account is None:
+    elif parsed['account'] is None:
         print("account not defined, cannot send request to legacy")
     else:
-        send_request(insights_id, account)
+        send_request(parsed['insights_id'], ['account'])
 
 
 def send_request(insights_id, account):
