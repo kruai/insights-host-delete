@@ -15,7 +15,6 @@ pipenv shell
 
 ## Running the App
 This application relies on kafka to be running in order to function.
-*Something about kafka*
 
 Running the app itself is quite simple:
 ```
@@ -23,4 +22,3 @@ pipenv run python app.py
 ```
 
 ## Deploying the App
-*Something about deployment*
