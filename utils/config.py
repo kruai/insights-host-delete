@@ -1,7 +1,9 @@
 import os
 import logging
 
-logging.basicConfig(level=logging.INFO)
+APP_NAME = os.environ.get("APP_NAME", "insights-host-delete")
+
+logger = logging.getLogger(APP_NAME)
 
 def get_namespace():
     try:
@@ -11,10 +13,24 @@ def get_namespace():
     except EnvironmentError:
         logging.info("Not running in openshift")
 
+
+def log_config():
+    """
+    log_config prints out all the config options except for AWS keys
+    """
+    import sys
+    for k, v in sys.modules[__name__].__dict__.items():
+        if k == k.upper():
+            if "AWS" in k.split("_"):
+                continue
+            logger.info("Using %s: %s", k, v)
+
 TOPIC = os.environ.get("KAFKA_TOPIC", "platform.inventory.events")
 KAFKA_GROUP = os.environ.get("KAFKA_GROUP", "inventory")
-BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:29092")
+BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:29092").split()
 LEGACY_URL = "https://access.redhat.com/r/insights/v1/systems"
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
+LOG_GROUP = os.environ.get("LOG_GROUP", "platform-dev")
 
 
 '''
