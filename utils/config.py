@@ -15,3 +15,5 @@ TOPIC = os.environ.get("KAFKA_TOPIC", "platform.inventory.events")
 KAFKA_GROUP = os.environ.get("KAFKA_GROUP", "inventory")
 BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:29092")
 LEGACY_URL = "https://access.redhat.com/r/insights/v1/systems"
+LEGACY_USERNAME = "SomeName"
+LEGACY_PASSWORD = "SomePass"
