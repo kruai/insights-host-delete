@@ -26,8 +26,8 @@ def handle_message(parsed):
 
 def send_request(insights_id, account):
     logger.debug("sending delete request to legacy")
-    URL = "{0}/{1}?account_number={2}".format(config.Legacy_URL, insights_id, account)
-    r = requests.delete(URL, auth=HTTPBasicAuth(config.USERNAME, config.PASSWORD))
+    URL = "{0}/{1}?account_number={2}".format(config.LEGACY_URL, insights_id, account)
+    r = requests.delete(URL, auth=HTTPBasicAuth(config.LEGACY_USERNAME, config.LEGACY_PASSWORD))
     logger.debug(r.text)
 
 for data in consumer:
