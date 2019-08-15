@@ -1,23 +1,14 @@
-import logging
-import json
 import requests
+import traceback
 
-from kafka.errors import KafkaError
 from requests.auth import HTTPBasicAuth
-from time import time
-from utils import config
+from utils import config, host_delete_logging
 from mq import kafka_consumer
 
+logger = host_delete_logging.initialize_logging()
 
-logger = logging.getLogger(config.APP_NAME)
-
-logger.info("Starting legacy host deletion service")
-config.log_config()
-
-consumer = kafka_consumer.init_consumer()
 
 def handle_message(parsed):
-
     try:
         send_request(parsed["rhel_machine_id"], parsed["account"])
     except KeyError as e:
@@ -30,5 +21,22 @@ def send_request(rhel_machine_id, account):
     r = requests.delete(URL, auth=HTTPBasicAuth(config.LEGACY_USERNAME, config.LEGACY_PASSWORD))
     logger.debug(r.text)
 
-for data in consumer:
-    handle_message(data.value)
+
+def main():
+
+    logger = host_delete_logging.initialize_logging()
+    logger.info("Starting legacy host deletion service")
+    config.log_config()
+
+    consumer = kafka_consumer.init_consumer()
+
+    for data in consumer:
+        handle_message(data.value)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception:
+        the_error = traceback.format_exc()
+        logger.error(f"Insights Host Delete Service failed with error: {the_error}")

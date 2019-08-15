@@ -5,6 +5,7 @@ APP_NAME = os.environ.get("APP_NAME", "insights-host-delete")
 
 logger = logging.getLogger(APP_NAME)
 
+
 def get_namespace():
     try:
         with open("/var/run/secrets/kubernetes.io/serviceaccount/namespace", "r") as f:
@@ -25,13 +26,17 @@ def log_config():
                 continue
             logger.info("Using %s: %s", k, v)
 
+
 TOPIC = os.environ.get("KAFKA_TOPIC", "platform.inventory.events")
 KAFKA_GROUP = os.environ.get("KAFKA_GROUP", "inventory")
 BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:29092").split()
 LEGACY_URL = "https://access.redhat.com/r/insights/v1/systems"
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 LOG_GROUP = os.environ.get("LOG_GROUP", "platform-dev")
-
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", None)
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
+AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
+NAMESPACE = get_namespace()
 
 '''
 TESTING AUTHENTICATION DATA BASED ON VM
