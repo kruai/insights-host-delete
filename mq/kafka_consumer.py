@@ -1,5 +1,4 @@
 import json
-import os
 
 from kafka import KafkaConsumer
 from utils import config
