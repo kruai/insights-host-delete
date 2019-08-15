@@ -19,14 +19,14 @@ consumer = kafka_consumer.init_consumer()
 def handle_message(parsed):
 
     try:
-        send_request(parsed["insights_id"], parsed["account"])
+        send_request(parsed["rhel_machine_id"], parsed["account"])
     except KeyError as e:
         logger.exception("Missing Key in Message: %s", e)
 
 
-def send_request(insights_id, account):
+def send_request(rhel_machine_id, account):
     logger.debug("sending delete request to legacy")
-    URL = "{0}/{1}?account_number={2}".format(config.LEGACY_URL, insights_id, account)
+    URL = "{0}/{1}?account_number={2}".format(config.LEGACY_URL, rhel_machine_id, account)
     r = requests.delete(URL, auth=HTTPBasicAuth(config.LEGACY_USERNAME, config.LEGACY_PASSWORD))
     logger.debug(r.text)
 
