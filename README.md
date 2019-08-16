@@ -20,5 +20,3 @@ Running the app itself is quite simple:
 ```
 pipenv run python app.py
 ```
-
-## Deploying the App
