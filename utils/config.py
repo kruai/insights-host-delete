@@ -12,7 +12,7 @@ def get_namespace():
             namespace = f.read()
         return namespace
     except EnvironmentError:
-        logging.info("Not running in openshift")
+        logger.info("Not running in openshift")
 
 
 def log_config():
@@ -38,10 +38,5 @@ AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
 AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
 NAMESPACE = get_namespace()
 
-'''
-TESTING AUTHENTICATION DATA BASED ON VM
-'''
-RHEL_MACHINE_ID = '389fb722-1fd1-4a60-bd3e-0f7bb23e0d5b'
-ACCOUNT = '540155'
-LEGACY_USERNAME = "SomeName"
-LEGACY_PASSWORD = "SomePass"
+LEGACY_USERNAME = os.environ.get("LEGACY_USERNAME", None)
+LEGACY_PASSWORD = os.environ.get("LEGACY_PASSWORD", None)
