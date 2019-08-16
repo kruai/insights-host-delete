@@ -18,7 +18,7 @@ def send_request(rhel_machine_id, account):
     logger.debug("sending delete request to legacy")
     URL = "{0}/{1}?account_number={2}".format(config.LEGACY_URL, rhel_machine_id, account)
     r = requests.delete(URL, auth=(config.LEGACY_USERNAME, config.LEGACY_PASSWORD))
-    if r.status_code != requests.codes.ok:
+    if r.status_code not in [200, 204]:
         logger.error("Request failed with error: [%s] %s", r.status_code, r.text)
 
 
