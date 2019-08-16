@@ -24,6 +24,8 @@ def log_config():
         if k == k.upper():
             if "AWS" in k.split("_"):
                 continue
+            elif "LEGACY" in k.split("_"):
+                continue
             logger.info("Using %s: %s", k, v)
 
 
