@@ -20,7 +20,7 @@ def send_request(rhel_machine_id, account):
     URL = "{0}/{1}?account_number={2}".format(config.LEGACY_URL, rhel_machine_id, account)
     r = requests.delete(URL, auth=HTTPBasicAuth(config.LEGACY_USERNAME, config.LEGACY_PASSWORD))
     if r.status_code != 200:
-        logger.error("Request failed with error: %s", r.text)
+        logger.error("Request failed with error: [%s] %s", r.status_code, r.text)
 
 
 def main():
