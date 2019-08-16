@@ -30,7 +30,7 @@ def log_config():
 
 
 TOPIC = os.environ.get("KAFKA_TOPIC", "platform.inventory.events")
-KAFKA_GROUP = os.environ.get("KAFKA_GROUP", "inventory")
+KAFKA_GROUP = os.environ.get("KAFKA_GROUP", "insights-host-delete")
 BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:29092").split()
 LEGACY_URL = "https://access.redhat.com/r/insights/v1/systems"
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
