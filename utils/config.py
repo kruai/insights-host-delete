@@ -35,6 +35,7 @@ BOOTSTRAP_SERVERS = os.environ.get("KAFKA_BOOTSTRAP_SERVERS", "localhost:29092")
 LEGACY_URL = os.environ.get("API_URL", None)
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 LOG_GROUP = os.environ.get("LOG_GROUP", "platform-dev")
+CREATE_LOG_GROUP = os.environ.get("CREATE_LOG_GROUP", "").lower() == "true"
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", None)
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", None)
 AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")

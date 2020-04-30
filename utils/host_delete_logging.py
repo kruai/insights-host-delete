@@ -15,9 +15,12 @@ def config_cloudwatch(logger):
     CW_SESSION = Session(aws_access_key_id=config.AWS_ACCESS_KEY_ID,
                          aws_secret_access_key=config.AWS_SECRET_ACCESS_KEY,
                          region_name=config.AWS_REGION)
-    cw_handler = watchtower.CloudWatchLogHandler(boto3_session=CW_SESSION,
-                                                 log_group=config.LOG_GROUP,
-                                                 stream_name=config.NAMESPACE)
+    cw_handler = watchtower.CloudWatchLogHandler(
+        boto3_session=CW_SESSION,
+        log_group=config.LOG_GROUP,
+        stream_name=config.NAMESPACE,
+        create_log_group=config.CREATE_LOG_GROUP
+    )
     cw_handler.setFormatter(LogstashFormatterV1())
     logger.addHandler(cw_handler)
 
