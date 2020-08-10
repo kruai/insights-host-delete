@@ -9,7 +9,10 @@ logger = host_delete_logging.initialize_logging()
 
 def handle_message(parsed):
     try:
-        send_request(parsed["insights_id"], parsed["account"])
+        if parsed["type"] is "delete":
+            send_request(parsed["insights_id"], parsed["account"])
+        else:
+            logger.debug("message is not of type delete, ignoring message")
     except KeyError as e:
         logger.exception("Missing Key in Message: %s", e)
 
@@ -18,7 +21,7 @@ def send_request(insights_id, account):
     logger.debug("sending delete request to legacy")
     URL = "{0}/{1}?account_number={2}".format(config.LEGACY_URL, insights_id, account)
 
-    if config.NAMESPACE is "platform-qa":
+    if (config.PROXY_TOKEN and config.PROXY_TOKEN_HEADER):
         r = requests.delete(URL, auth=(config.LEGACY_USERNAME, config.LEGACY_PASSWORD), 
                                 headers={config.PROXY_TOKEN_HEADER: config.PROXY_TOKEN})                                
     else:
