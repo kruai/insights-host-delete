@@ -9,7 +9,10 @@ logger = host_delete_logging.initialize_logging()
 
 def handle_message(parsed):
     try:
-        send_request(parsed["insights_id"], parsed["account"])
+        if parsed["type"] is "delete":
+            send_request(parsed["insights_id"], parsed["account"])
+        else:
+            logger.debug("message is not of type delete, ignoring message")
     except KeyError as e:
         logger.exception("Missing Key in Message: %s", e)
 
