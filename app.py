@@ -13,6 +13,7 @@ def handle_message(parsed):
             send_request(parsed["insights_id"], parsed["account"])
     except KeyError as e:
         logger.exception("Missing Key in Message: %s", e)
+        logger.debug("data parsed: %s", parsed)
 
 
 def send_request(insights_id, account):
@@ -43,7 +44,7 @@ def main():
     consumer = kafka_consumer.init_consumer()
 
     for data in consumer:
-        handle_message(data.value)
+        handle_message(data)
 
 
 if __name__ == "__main__":
