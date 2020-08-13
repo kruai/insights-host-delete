@@ -44,7 +44,7 @@ def main():
     consumer = kafka_consumer.init_consumer()
 
     for data in consumer:
-        handle_message(data)
+        handle_message(data.value)
 
 
 if __name__ == "__main__":
