@@ -31,6 +31,12 @@ def send_request(insights_id, account):
         logger.debug("Request completed with error: [%s] %s", r.status_code, r.text)
 
 
+def mark_status_healthy():
+    f = open("/tmp/health", "w")
+    f.write("Successfully initialized Kafka consumer")
+    f.close()
+
+
 def main():
 
     logger = host_delete_logging.initialize_logging()
@@ -41,6 +47,8 @@ def main():
         raise ValueError("Legacy Username and Password Required")
 
     consumer = kafka_consumer.init_consumer()
+
+    mark_status_healthy()
 
     for data in consumer:
         handle_message(data.value)
